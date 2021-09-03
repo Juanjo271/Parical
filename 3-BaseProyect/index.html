@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3-Proyecto Base</title>
+  <script type="module" src="./src/app.js"></script>
+  <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+  <div id="renderScene">
+    <div id="backBtn">Return</div>
+    <div id="createCubeBtn">Create Cube</div>
+     <div id="createSphereBtn">Create Sphere</div>
+    <div id="createLightBtn">Create LightPoint</div> 
+    <div id="createLightSpotBtn">Create LightsSpot</div>
+    <div id="createLightAmBtn">Create AmbienLight</div>
+    <div id="createLightDirBtn">Create DirectionalLight</div>
+  </div>
+  <div id="content">
+    <div class="btnOption small" data-size="10">
+      <div class="title">Small</div>
+      <span>10x10</span>
+    </div>
+    <div class="btnOption medium" data-size="20">
+      <div class="title">Medium</div>
+      <span>20x20</span>
+    </div>
+    <div class="btnOption big" data-size="40">
+      <div class="title">Big</div>
+      <span>40x40</span>
+    </div>
+      <div class="customPlane">
+        <div class="title">Custom</div>
+        <span>?x?</span>
+        <input type="text" name="data-size" id="data-size">
+        <input type="submit" value="Send" id="enviarData">
+      </div>
+
+  </div>
+  <script type="module">
+    import { main, reset, cleanGUI,createLightDirGeneric, createLightPointGeneric,createCubeGeneric,createSphereGeneric,createLightSpotGeneric,createLightAmGeneric} from './src/app.js';
+    const enviar = document.querySelectorAll('#enviarData');
+    const options = document.querySelectorAll('.btnOption');
+    const content = document.querySelector('#content');
+    const backBtn = document.querySelector('#backBtn');
+    const createCubeBtn = document.querySelector('#createCubeBtn');
+    const createSphereBtn = document.querySelector('#createSphereBtn');
+    const createLightBtn = document.querySelector('#createLightBtn');
+    const createLightSpotBtn=document.querySelector('#createLightSpotBtn');
+    const createLightAmGenericBtn=document.querySelector('#createLightAmGenericBtn');
+    const createLightDirGenericBtn=document.querySelector('#createLightDirGenericBtn');
+    let size = 10;
+
+    options.forEach(optionSelected => {
+      optionSelected.onclick = function(){
+        const optionSize = this.dataset.size;
+        size = optionSize;
+        toogleContent();
+        main(size);
+      }
+    });
+    enviarData.onclick = function(){
+      var optionSize = document.getElementById("data-size").value;
+      size = optionSize;
+      console.log(optionSize);
+      main(optionSize);
+      toogleContent();
+    }
+
+    backBtn.onclick = function(){
+      toogleContent();
+      cleanGUI();
+      reset();
+    }
+    
+    createCubeBtn.onclick = function(){
+      createCubeGeneric();
+    }
+
+    createSphereBtn.onclick = function(){
+      createSphereGeneric();
+    }
+   
+    createLightSpotBtn.onclick = function(){
+      createLightSpotGeneric();
+    }
+    createLightAmBtn.onclick = function(){
+      createLightAmGeneric();
+    }
+    createLightBtn.onclick = function(){
+      createLightPointGeneric();
+    }
+    createLightDirBtn.onclick = function(){
+      createLightDirGeneric();
+    }
+    
+  
+    function toogleContent (){
+      content.style.display = content.style.display == 'none' ? 'flex' : 'none';
+    }
+  </script>
+</body>
+
+</html>
